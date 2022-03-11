@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h> //not sure if we need this one
+#include <ctype.h> 
 #include "value.h"
 #include "linkedlist.h"
 #include "talloc.h"
@@ -16,6 +16,6 @@ Value *evalIf(Value *args, Frame *frame){
     if(!strcmp(evalValue->s, "#f")){
         return eval(car(cdr(cdr(args))), frame);
     }
-
     return eval(car(cdr(args)), frame);
 }
+

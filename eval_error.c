@@ -38,7 +38,9 @@ void errorCheckLet(Value *args){
 Checks if the passed in first argument is valid 
 */
 void errorCheck(Value *first){
-    if(isNull(first) || (strcmp(first->s, "if") && strcmp(first->s, "let") && strcmp(first->s, "quote"))){
+    // printf("bouta go in\n");
+    //display(first);
+    if(isNull(first)){
         printf("Evaluation error: first argument not recognized.\n");
         texit(0);
     }
@@ -61,4 +63,20 @@ Exits when first is not valid
 void evalationError(){
     printf("Evaluation error: input not recognized.\n");
     texit(0);
+}
+
+/*
+Checks error for lambda functions
+*/
+void errorCheckLambda(Value *args){
+    if(isNull(args) || isNull(cdr(args)) || isNull(car(cdr(args)))){
+        printf("Evaluation error: lambda input not recognized.\n");
+        texit(0);
+    }
+    // printf("%u", car(car(args))->type);
+    
+    if((car(car(args))->type != SYMBOL_TYPE && car(car(args))->type != NULL_TYPE)){
+        printf("Evaluation error: lambda arguments must be symbols.\n");
+        texit(0);
+    }
 }

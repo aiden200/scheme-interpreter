@@ -5,6 +5,7 @@
 #include "linkedlist.h"
 #include "talloc.h"
 #include "tokenizer.h"
+#include "interpreter.h"
 
 
 /*
@@ -14,39 +15,44 @@ Else, prints out the appropriate value depending on the passed in value structs 
 Returns nothing/
 */
 void printTree(Value *tree){
-    while(!isNull(tree)){
-        switch (car(tree)->type) {
-            case INT_TYPE:
-                printf("%i", car(tree)->i);
-                break;
-            case DOUBLE_TYPE:
-                printf("%f", car(tree)->d);
-                break;
-            case STR_TYPE:
-                printf("\"%s\"", car(tree)->s);
-                break;
-            case CONS_TYPE:
-                printf("(");
-                printTree((car(tree)));
-                printf(")");
-                break;
-            case SYMBOL_TYPE:
-                printf("%s", car(tree)->s);
-                break;
-            case BOOL_TYPE:
-                printf("%s", car(tree)->s);
-                break;
-            default:
-                break;
+    switch (tree->type) {
+        case INT_TYPE:
+            printf("%i", tree->i);
+            break;
+        case DOUBLE_TYPE:
+            printf("%f", tree->d);
+            break;
+        case STR_TYPE:
+            printf("\"%s\"", tree->s);
+            break;
+        case CONS_TYPE:
+            
+            printf("(");
+            while(tree->type == CONS_TYPE){
+                printTree(car(tree));
+                fflush( stdout );
+                tree = cdr(tree);
+                if(tree->type != CONS_TYPE && tree->type != NULL_TYPE){
+                    printf(" . ");
+                    display(tree);
+                } else if(tree->type != NULL_TYPE ){
+                    printf(" ");
+                }
+            }
+            printf(")");
+            fflush( stdout );
+            break;
+        case SYMBOL_TYPE:
+            printf("%s", tree->s);
+            fflush( stdout );
+            break;
+        case BOOL_TYPE:
+            printf("%s", car(tree)->s);
+            break;
+        default:
+            break;
 
-        }
-        if(!isNull(cdr(tree)) && (car(tree)->type != CLOSE_TYPE)){
-            printf(" ");
-        }
-        
-        tree = cdr(tree);
     }
-    
 }
 
 

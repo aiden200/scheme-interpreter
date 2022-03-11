@@ -5,6 +5,7 @@
 #include "linkedlist.h"
 #include "talloc.h"
 #include "interpreter.h"
+#include "parser.h"
 
 
 
@@ -16,7 +17,7 @@ Value *lookUpSymbol(Value *tree, Frame *frame){
     Frame *currFrame = frame;
     while(currFrame != NULL){
         Value *curr = currFrame->bindings;
-        while(!isNull(curr)){            
+        while(!isNull(curr) && !isNull(car(curr))){   //this is the issue, we are never breaking
             if(!strcmp(car(car(curr))->s, tree->s)){
                 return cdr(car(curr));
             }

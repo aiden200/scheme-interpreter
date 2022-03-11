@@ -1,14 +1,15 @@
 #ifndef _VALUE
 #define _VALUE
 
-//3 cons 9 sym null =4
+//3 cons 9 sym null =4 0int 4null 12 primitive
 typedef enum {
     INT_TYPE, DOUBLE_TYPE, STR_TYPE, CONS_TYPE, NULL_TYPE, PTR_TYPE,
-    OPEN_TYPE, CLOSE_TYPE, BOOL_TYPE, SYMBOL_TYPE,
+    OPEN_TYPE, CLOSE_TYPE, BOOL_TYPE, SYMBOL_TYPE, VOID_TYPE,
+    CLOSURE_TYPE, PRIMITIVE_TYPE, UNSPECIFIED_TYPE,
     
     // Types below are only for bonus work (feel free to comment them out)
-    OPENBRACKET_TYPE, CLOSEBRACKET_TYPE, DOT_TYPE, SINGLEQUOTE_TYPE,
-    VOID_TYPE
+    OPENBRACKET_TYPE, CLOSEBRACKET_TYPE, DOT_TYPE, SINGLEQUOTE_TYPE
+    
 } valueType;
 
 struct Value {
@@ -22,6 +23,17 @@ struct Value {
             struct Value *car;
             struct Value *cdr;
         } c;
+        struct Closure {
+            // List of parameter names
+            struct Value *paramNames;
+            // Tree for the body of the function
+            struct Value *functionCode;
+            // Active frame when function was defined
+            struct Frame *frame;
+        } cl;
+        // The 'pf' variable can hold a pointer to a C function with the 
+        // right signature
+        struct Value *(*pf)(struct Value *);
     };
 };
 // Where do you store a boolean in the union? It's up to you, but I recommend 

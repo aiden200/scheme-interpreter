@@ -14,4 +14,6 @@ void errorCheckQuote(Value *args);
 
 void evalationError();
 
+void errorCheckLambda(Value *args);
+
 #endif

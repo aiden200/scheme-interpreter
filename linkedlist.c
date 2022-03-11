@@ -82,11 +82,17 @@ void display(Value *list){
             printf("\"%s\"", list->s);
             break;
         case CONS_TYPE:
+            if(car(list)->type == NULL_TYPE){
+                break;
+            }
             display((list->c).car);
             printf(" ");
             display((list->c).cdr); 
         case SYMBOL_TYPE:
             printf("%s", list->s);
+            break;
+        case CLOSURE_TYPE:
+            printf("%s", "#<procedure>");
             break;
         case BOOL_TYPE:
             printf("%s", list->s);

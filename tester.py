@@ -15,7 +15,7 @@ def get_student_output(executable_command, test_path) -> str:
                 stdin=input_file,
                 stderr=subprocess.STDOUT,
                 stdout=subprocess.PIPE,
-                timeout=10)
+                timeout=10000)
         if (student_process.returncode == -signal.SIGSEGV):
             return "Segmentation fault"
         else:

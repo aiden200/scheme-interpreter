@@ -12,5 +12,5 @@ quotes are literal values, print them directly by returning the value node witho
 */
 Value *evalQuote(Value *args){
 
-    return args;
+    return car(args);
 }

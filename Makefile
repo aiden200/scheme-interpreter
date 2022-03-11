@@ -8,9 +8,11 @@ ifeq ($(USE_BINARIES),yes)
 	       lib/value.h interpreter.h
 else
   SRCS = linkedlist.c talloc.c main.c tokenizer.c parser.c interpreter.c \
-  eval_error.c eval_if.c eval_let.c look_up_symbol.c eval_quote.c
+  eval_error.c eval_if.c eval_let.c look_up_symbol.c eval_quote.c \
+  eval_define.c eval_lambda.c apply.c primitiveFunctions.c
   HDRS = tokenizer.h linkedlist.h talloc.h parser.h value.h interpreter.h \
-  eval_error.h eval_if.h eval_let.h look_up_symbol.h eval_quote.h
+  eval_error.h eval_if.h eval_let.h look_up_symbol.h eval_quote.h \
+  eval_define.h eval_lambda.h apply.h primitiveFunctions.h
 endif
 
 CC = clang

@@ -84,12 +84,12 @@ Value *tokenize() {
     // Start tokenizing!
     while (nextChar != EOF) {
         
-        if (nextChar == '(') {
+        if (nextChar == '(' && inComment == 0) {
             word[0] = '(';
             found = 1;
             index++;
 
-        } else if (nextChar == ')') {
+        } else if (nextChar == ')' && inComment == 0) {
             word[0] = ')';
             found = 1;
             index++;
@@ -297,7 +297,7 @@ Value *tokenize() {
 
     // Reverse the tokens list, to put it back in order
     Value *reversedList = reverse(tokensList);
-    //display(reversedList);
+    // display(reversedList);
     return reversedList;
 }
 
